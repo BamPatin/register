@@ -15,9 +15,12 @@ class Migration(migrations.Migration):
             name='Person',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('age', models.IntegerField()),
-                ('date', models.DateField(auto_now_add=True)),
+                ('fname' , models.CharField(max_length=100)),
+                ('lname' , models.CharField(max_length=100)),
+                ('age' , models.IntegerField()),
+                ('username' , models.CharField(max_length=20)),
+                ('email' , models.CharField(max_length=100)),
+                ('password' , models.CharField(max_length=20)),
             ],
         ),
     ]

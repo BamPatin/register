@@ -1,12 +1,27 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>เกี่ยวกับเรา</title>
+    <title>Login</title>
 {% endblock title %}
 
 {% block content %}
-    <h1 style='color:blue;'> เกี่ยวกับเรา </h1>
-    <p> About Meeeeee ! </p>
-   
+        <h2 class="text-center">ลงชื่อเข้าสู่ระบบ</h2>
+        <form method="post" action="about">
+            {% csrf_token %}
+            <div class="form-group mb-3">        
+                <label for="email">Email</label>
+                <input type="text" name="email" class="from-control">
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="text" name="password" class="from-control">
+            </div>
+
+            <input type="submit" value="ลงชื่อเข้าสู่ระบบ" class="btn btn-success">
+
+        </form>
+
+        
 {% endblock content %}  
+   
 

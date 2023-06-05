@@ -18,9 +18,12 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">ชื่อ</th>   
-            <th scope="col">อายุ</th>
-            <th scope="col">วันที่เพิ่มข้อมูล</th>
+            <th scope="col">First Name</th>  
+            <th scope="col">Last Name</th>    
+            <th scope="col">Age</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
             <th scope="col">แก้ไข</th>   
             <th scope="col">ลบ</th>
           </tr>
@@ -29,9 +32,12 @@
           {% for person in all_person %}
           <tr>
             <th scope="row">{{person.id}}</th>
-            <td>{{person.name}}</td>
+            <td>{{person.fname}}</td>
+            <td>{{person.lname}}</td>
             <td>{{person.age}}</td>
-            <td>{{person.date}}</td>
+            <td>{{person.username}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.password}}</td>
             <td > <a href='edit/{{person.id}}' class="btn btn-warning">แก้ไข</a> </td>
             <td > 
               <a href='delete/{{person.id}}' 

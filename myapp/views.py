@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from myapp.models import Person
 from django.contrib import messages
+from django.contrib.auth.models import User,auth
+
 
 # Create your views here.
 def index(request) :
@@ -14,12 +16,21 @@ def about(request) :
 def form(request) :
     if request.method == "POST" :
         #รับข้อมูล
-        name = request.POST["name"]
+        fname = request.POST["fname"]
+        lname = request.POST["lname"]
         age = request.POST["age"]
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+
         #บันทึกข้อมูล
         person = Person.objects.create(
-            name=name,
-            age=age
+            fname=fname,
+            lname=lname,
+            age=age,
+            username = username,
+            email = email,
+            password = password
         )
         person.save()
         messages.success(request,"บันทึกข้อมูลเรียบร้อย")
@@ -33,8 +44,12 @@ def edit(request,person_id) :
     if request.method == "POST" :
     #เมื่อมีการส่งข้อมูลมา
         person = Person.objects.get(id=person_id)     #ดึงข้อมูลประชากรที่ต้องการแก้ไข
-        person.name = request.POST["name"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
+        person.fname = request.POST["fname"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
+        person.lname = request.POST["lname"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
         person.age = request.POST["age"]
+        person.username = request.POST["username"]
+        person.email = request.POST["email"]
+        person.password = request.POST["password"]
         person.save()
         messages.success(request,"อัพเดทข้อมูลเรียบร้อย")
         return redirect("/")
@@ -48,3 +63,16 @@ def delete(request,person_id) :
     person.delete()
     messages.success(request,"ลบข้อมูลเรียบร้อย")
     return redirect("/")
+
+def logincheck(request) :
+    if request.method == "POST" :
+        email = request.POST["email"]
+        password = request.POST["password"]
+    #login
+    user = auth.authenticate(email=email , password=password)
+    if user is not None :
+        auth.logincheck(request,user)
+        return redirect('/')
+    else :
+        messages.info(request,"ไม่สามารถเข้าสู่ระบบได้")
+        return redirect('/about')
