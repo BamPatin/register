@@ -23,7 +23,6 @@
             <th scope="col">Age</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
-            <th scope="col">Password</th>
             <th scope="col">แก้ไข</th>   
             <th scope="col">ลบ</th>
           </tr>
@@ -32,17 +31,16 @@
           {% for person in all_person %}
           <tr>
             <th scope="row">{{person.id}}</th>
-            <td>{{person.fname}}</td>
-            <td>{{person.lname}}</td>
+            <td>{{person.first_name}}</td>
+            <td>{{person.last_name}}</td>
             <td>{{person.age}}</td>
             <td>{{person.username}}</td>
             <td>{{person.email}}</td>
-            <td>{{person.password}}</td>
             <td > <a href='edit/{{person.id}}' class="btn btn-warning">แก้ไข</a> </td>
             <td > 
               <a href='delete/{{person.id}}' 
               class="btn btn-danger"
-              onclick="return confirm('คุณต้องการลบ {{person.name}} หรือไม่?')">ลบ</a> 
+              onclick="return confirm('คุณต้องการลบ {{person.first_name}} หรือไม่?')">ลบ</a> 
             </td>
           </tr>
           {% endfor %}

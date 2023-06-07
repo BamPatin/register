@@ -6,17 +6,24 @@
 
 {% block content %}
         <h2 class="text-center">ลงชื่อเข้าสู่ระบบ</h2>
-        <form method="post" action="about">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    <storng>{{message}}</storng>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <form method="post" action="login">
             {% csrf_token %}
             <div class="form-group mb-3">        
-                <label for="email">Email</label>
-                <input type="text" name="email" class="from-control">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="from-control">
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password</label>
                 <input type="text" name="password" class="from-control">
             </div>
-
             <input type="submit" value="ลงชื่อเข้าสู่ระบบ" class="btn btn-success">
 
         </form>

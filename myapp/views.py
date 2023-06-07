@@ -10,14 +10,14 @@ def index(request) :
     all_person = Person.objects.all()
     return render(request,"index.html",{"all_person":all_person})
 
-def about(request) :
-    return render(request,"about.html")
+def loginform(request) :
+    return render(request,"login.html")
 
 def form(request) :
     if request.method == "POST" :
         #รับข้อมูล
-        fname = request.POST["fname"]
-        lname = request.POST["lname"]
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
         age = request.POST["age"]
         username = request.POST["username"]
         email = request.POST["email"]
@@ -25,13 +25,14 @@ def form(request) :
 
         #บันทึกข้อมูล
         person = Person.objects.create(
-            fname=fname,
-            lname=lname,
+            first_name=first_name,
+            last_name=last_name,
             age=age,
             username = username,
             email = email,
-            password = password
+            # password = password
         )
+        person.set_password(password)  #แปลงpasswordเป็นการเข้ารหัส
         person.save()
         messages.success(request,"บันทึกข้อมูลเรียบร้อย")
         #เปลี่ยนเส้นทาง
@@ -44,8 +45,8 @@ def edit(request,person_id) :
     if request.method == "POST" :
     #เมื่อมีการส่งข้อมูลมา
         person = Person.objects.get(id=person_id)     #ดึงข้อมูลประชากรที่ต้องการแก้ไข
-        person.fname = request.POST["fname"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
-        person.lname = request.POST["lname"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
+        person.first_name = request.POST["first_name"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
+        person.last_name = request.POST["last_name"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
         person.age = request.POST["age"]
         person.username = request.POST["username"]
         person.email = request.POST["email"]
@@ -64,15 +65,25 @@ def delete(request,person_id) :
     messages.success(request,"ลบข้อมูลเรียบร้อย")
     return redirect("/")
 
-def logincheck(request) :
+def login(request) :
     if request.method == "POST" :
-        email = request.POST["email"]
+        username = request.POST["username"]
         password = request.POST["password"]
-    #login
-    user = auth.authenticate(email=email , password=password)
-    if user is not None :
-        auth.logincheck(request,user)
-        return redirect('/')
-    else :
-        messages.info(request,"ไม่สามารถเข้าสู่ระบบได้")
-        return redirect('/about')
+        #ระบบ login ปลอมๆ
+        # try:
+        #     user = Person.objects.get(username=username , password=password)
+        # except:
+        #     user = None
+        user = auth.authenticate(username=username , password=password)
+        if user is not None :
+            auth.login(request, user)
+            messages.success(request,"เข้าสู่ระบบสำเร็จ")
+            return redirect('/')
+        else :
+            messages.success(request,"ไม่สามารถเข้าสู่ระบบได้")
+            return redirect('/login')
+            
+
+    #else:
+    #   form = LoginForm()
+    return render(request, 'login.html', {'form': form})
