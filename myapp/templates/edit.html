@@ -20,6 +20,15 @@
                 <label for="age">Age</label>
                 <input type="number" name="age" class="from-control" value="{{person.age}}">
             </div>
+            <p class="form-group mb-3 form-check-inline">gender</p>
+            <div class="form-group mb-3 form-check-inline">
+                <input class="from-control" type="radio" name="gender" value="F" checked >
+                <label class="Female" for="gender">Female</label>
+            </div>
+            <div class="form-group mb-3 form-check-inline">
+                <input class="from-control" type="radio" name="gender" value="M" checked >
+                <label class="Male" for="gender">Male</label>
+            </div>
             <div class="form-group mb-3">
                 <label for="username">Username</label>
                 <input type="text" name="username" class="from-control" value="{{person.username}}">
@@ -31,6 +40,10 @@
             <div class="form-group mb-3">
                 <label for="password">Password</label>
                 <input type="text" name="password" class="from-control"value="{{person.password}}">
+            </div>
+            <div class="form-group mb-3">
+                <label for="image">Choose an image: </label>
+                <input type="file" name="image" class="from-control" value="{{person.image}}">
             </div>
             <input type="submit" value="อัพเดทข้อมูล" class="btn btn-success">
         </form>

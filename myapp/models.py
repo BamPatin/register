@@ -19,7 +19,7 @@ class Person(AbstractUser):
     #is_active = models.BooleanField(default=True)
     #is_staff = models.BooleanField(default=False)
     gender = models.CharField(max_length=5 , null=True , blank=True , choices=GENDER_CHOICE)
-    image = models.FileField(upload_to = 'upload' , null=True , blank=True)
+    image = models.FileField(upload_to = 'upload/' , null=True , blank=True)
 
 
     def __str__(self):

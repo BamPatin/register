@@ -4,6 +4,13 @@ from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
+    readonly_fields = ('display_image',)
+    
+    def display_image(self, obj):
+        return obj.image_tag()
+
+    display_image.short_description = 'Image'
+    
     list_display = ("first_name", "last_name", "age","gender","show_image",) # field ที่จะแสดง
     # list_filter = ['email']                     # filter
     # search_fields = ('first_name', 'email')    # ให้ไปค้นหาที่ field ไหน

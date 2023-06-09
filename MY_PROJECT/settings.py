@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 # ALLOWED_HOSTS = ['192.168.1.125']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.20.10.2']
 
 # Application definition
 
@@ -127,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')   #อัพโหลดไฟล์
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'/static')

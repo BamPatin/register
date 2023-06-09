@@ -19,17 +19,21 @@ def form(request) :
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
         age = request.POST["age"]
+        gender = request.POST["gender"]
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
+        image = request.POST["image"]
 
         #บันทึกข้อมูล
         person = Person.objects.create(
             first_name=first_name,
             last_name=last_name,
             age=age,
+            gender = gender,
             username = username,
             email = email,
+            image = image
             # password = password
         )
         person.set_password(password)  #แปลงpasswordเป็นการเข้ารหัส
@@ -41,6 +45,7 @@ def form(request) :
     else:
         return render(request,"form.html")
     
+
 def edit(request,person_id) :
     if request.method == "POST" :
     #เมื่อมีการส่งข้อมูลมา
@@ -48,9 +53,11 @@ def edit(request,person_id) :
         person.first_name = request.POST["first_name"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
         person.last_name = request.POST["last_name"]           #แก้ไขข้อมูลใหม่ตามที่ส่งมาจากแบบฟอร์ม
         person.age = request.POST["age"]
+        person.gender = request.POST["gender"]
         person.username = request.POST["username"]
         person.email = request.POST["email"]
         person.password = request.POST["password"]
+        person.image = request.POST["image"]
         person.save()
         messages.success(request,"อัพเดทข้อมูลเรียบร้อย")
         return redirect("/")
