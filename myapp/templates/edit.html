@@ -22,11 +22,11 @@
             </div>
             <p class="form-group mb-3 form-check-inline">gender</p>
             <div class="form-group mb-3 form-check-inline">
-                <input class="from-control" type="radio" name="gender" value="F" checked >
+                <input class="from-control" type="radio" name="gender" value="F" {% if person.gender == 'F' %}checked{% endif %} >
                 <label class="Female" for="gender">Female</label>
             </div>
             <div class="form-group mb-3 form-check-inline">
-                <input class="from-control" type="radio" name="gender" value="M" checked >
+                <input class="from-control" type="radio" name="gender" value="M" {% if person.gender == 'M' %}checked{% endif %} >
                 <label class="Male" for="gender">Male</label>
             </div>
             <div class="form-group mb-3">

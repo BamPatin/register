@@ -3,11 +3,24 @@ from django.http import HttpResponse
 from myapp.models import Person
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+from django.db.models import Q
+
 
 
 # Create your views here.
 def index(request) :
     all_person = Person.objects.all()
+    # all_person = Person.objects.filter(email__contains='a')  
+    # all_person = Person.objects.filter(email__istartswith='b')  
+    # all_person = Person.objects.filter(email__endswith='n')
+    # all_person = Person.objects.filter(Q(email__istartswith='b') & Q(email__endswith ='m'))  
+    # all_person = Person.objects.filter(age =22)  
+    # all_person = Person.objects.filter(email__contains='@gmail')
+    # Loop through the objects and update the email field
+    for obj in all_person:
+        obj.email = obj.email.replace('@gmail', '@actuarialbiz')
+        obj.save()
+
     return render(request,"index.html",{"all_person":all_person})
 
 def loginform(request) :
@@ -89,8 +102,8 @@ def login(request) :
         else :
             messages.success(request,"ไม่สามารถเข้าสู่ระบบได้")
             return redirect('/login')
-            
-
     #else:
     #   form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
